@@ -106,7 +106,7 @@ sudo usermod -a -G docker $USER
 
 ```
 
-# Additional Improvements
+
 # Additional Improvements
 
 docker remove $(docker ps -a -q)
