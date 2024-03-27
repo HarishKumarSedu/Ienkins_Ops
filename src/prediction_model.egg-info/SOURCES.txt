@@ -2,8 +2,6 @@ MANIFEST.in
 README.md
 requirements.txt
 setup.py
-./tests/pytest.ini
-./tests/test_prediction.py
 prediction_model/VERSION
 prediction_model/__init__.py
 prediction_model/pipeline.py
@@ -24,4 +22,5 @@ prediction_model/processing/data_handling.py
 prediction_model/processing/preprocessing.py
 prediction_model/trained_models/__init__.py
 prediction_model/trained_models/classification.pkl
+tests/pytest.ini
 tests/test_prediction.py
