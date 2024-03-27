@@ -107,6 +107,7 @@ sudo usermod -a -G docker $USER
 ```
 
 # Additional Improvements
+# Additional Improvements
 
 docker remove $(docker ps -a -q)
 docker images --format "{{.ID}} {{.CreatedAt}}" | sort -rk 2 | awk 'NR==1{print $1}'
