@@ -31,10 +31,10 @@ pip install .
 # Docker Commands
 ```
 docker build -t loan_pred:v1 .
-docker build -t manifoldailearning/cicd:latest . 
-docker push manifoldailearning/cicd:latest
+docker build -t harishkumarshivaramappa/cicd:latest . 
+docker push harishkumarshivaramappa/cicd:latest
 
-docker run -d -it --name modelv1 -p 8005:8005 manifoldailearning/cicd:latest bash
+docker run -d -it --name modelv1 -p 8005:8005 harishkumarshivaramappa/cicd:latest bash
 
 docker exec modelv1 python prediction_model/training_pipeline.py
 
@@ -74,26 +74,34 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 `
 
 ```bash
-# Add Docker's official GPG key:
-sudo apt-get update
-sudo apt-get install ca-certificates curl gnupg
-sudo install -m 0755 -d /etc/apt/keyrings
+#update the ubuntu package list 
+sudo apt update && sudo apt upgrade -y
+# add the docker package repository / install the common required packages 
+
+sudo apt install ca-certificates curl gnupg lsb-release
+sudo mkdir -p /etc/apt/keyrings
+# download the docker package 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
-
-# Add the repository to Apt sources:
-for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
-
-echo \
-  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
+# Add the oficial repository 
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+#update the system 
+sudo apt update
+# install the docker CE on AWS Ec2 Ubuntu
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+#check the version of docker 
+docker -v 
+# check the status of the docker running 
+systemctl status docker --no-pager -l
 
+# provide the root user permission for the docker and the jenkins 
 sudo usermod -a -G docker jenkins
 sudo usermod -a -G docker $USER
 
+newgrp docker
+###### ! Reboot the ec2 instance 
+
+# run the hello-world image in the docker 
+docker run hello-world
 ```
 
 # Admin password Jenkins
