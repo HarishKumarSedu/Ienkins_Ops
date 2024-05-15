@@ -1,4 +1,4 @@
-# Setup Virtual-Environment
+# Setup Virtual Environment
 
 ```python
 conda create -n jenkins-env python=3.10 -y
