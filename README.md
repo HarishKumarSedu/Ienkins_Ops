@@ -67,6 +67,8 @@ java -version
 sudo systemctl enable jenkins
 sudo systemctl start jenkins
 sudo systemctl status jenkins
+# provide access for the docker jenkins if your using the Debian server
+sudo chmod a+rw /var/run/docker.sock
 ```
 
 `
